@@ -4,47 +4,31 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Quiz App</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body onload="nextQuestion()">
-    <div>
-        <h1 style="font-size: 30px; text-align: center;">Quiz App</h1>
-        <h1 id="timer" style="text-align: center;">2:00</h1>
-    </div>
-    <div>
+
+    <div class="quiz-container">
+        <h1>Quiz App</h1>
+        <h1 id="timer">2:00</h1>
+        
         <p id="ques"></p>
-        <input
-            value="1"
-            onclick="clicked()"
-            type="radio"
-            class="options"
-            name="options"
-            id=""
-        >
-        <label id="opt1" for=""></label>
-        <br>
-        <br>
-        <input
-            value="2"
-            onclick="clicked()"
-            type="radio"
-            class="options"
-            name="options"
-            id=""
-        >
-        <label id="opt2" for=""></label>
-        <br>
-        <br>
-        <input
-            value="3"
-            onclick="clicked()"
-            type="radio"
-            class="options"
-            name="options"
-            id=""
-        >
-        <label id="opt3" for=""></label>
-        <br>
-        <br>
+
+        <div class="option-wrapper">
+            <input value="1" onclick="clicked()" type="radio" class="options" name="options" id="radio1">
+            <label id="opt1" for="radio1"></label>
+        </div>
+
+        <div class="option-wrapper">
+            <input value="2" onclick="clicked()" type="radio" class="options" name="options" id="radio2">
+            <label id="opt2" for="radio2"></label>
+        </div>
+
+        <div class="option-wrapper">
+            <input value="3" onclick="clicked()" type="radio" class="options" name="options" id="radio3">
+            <label id="opt3" for="radio3"></label>
+        </div>
+
         <button id="btn" disabled onclick="nextQuestion()">Next</button>
     </div>
 

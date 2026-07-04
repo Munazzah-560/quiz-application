@@ -1,10 +1,10 @@
 var questions = [
     {
-      question: "Q1: HTML Stands for?",
-      option1: "Hyper Text Markup Language",
-      option2: "Hyper Tech Markup Language",
-      option3: "Hyper Touch Markup Language",
-      corrAnswer: "Hyper Text Markup Language",
+        question: "Q1: HTML Stands for?",
+        option1: "Hyper Text Markup Language",
+        option2: "Hyper Tech Markup Language",
+        option3: "Hyper Touch Markup Language",
+        corrAnswer: "Hyper Text Markup Language",
     },
     {
       question: "Q2: CSS Stands for?",
@@ -63,11 +63,11 @@ var questions = [
       corrAnswer: "True",
     },
     {
-      question: "Q10: push() method is used to add element in the start of array? ",
-      option1: "True",
-      option2: "False",
-      option3: "None of above",
-      corrAnswer: "False",
+        question: "Q10: push() method is used to add element in the start of array? ",
+        option1: "True",
+        option2: "False",
+        option3: "None of above",
+        corrAnswer: "False",
     },
 ];
 
@@ -81,8 +81,6 @@ var score = 0;
 var sec = 59;
 var min = 1;
 var timerElement = document.getElementById("timer");
-
-// timerId variable add kiya gaya hai
 var timerId;
 
 function timer() {
@@ -92,17 +90,18 @@ function timer() {
         min--;
         sec = 59;
         if (min < 0) {
-            min = 1;
-            sec = 59;
-            nextQuestion();
+            clearInterval(timerId);
+            showResult(); 
         }
     }
 }
-// setInterval ko timerId variable mein store kiya
+
 timerId = setInterval(timer, 1000);
 
 function nextQuestion() {
     var options = document.getElementsByClassName("options");
+
+    // Check: Agar koi option select kiya hai toh score update karo
     for (var i = 0; i < options.length; i++) {
         if (options[i].checked) {
             var selectedOption = options[i].value;
@@ -111,25 +110,37 @@ function nextQuestion() {
             if (getOption === corrAnswer) {
                 score++;
             }
+            options[i].checked = false; 
         }
-        options[i].checked = false;
     }
-    button.disabled = true;
-    if (index > questions.length - 1) {
-        clearInterval(timerId); 
 
-        Swal.fire({
-            title: "Good job!",
-            text: `Your score is ${((score / questions.length) * 100).toFixed(2)}`,
-            icon: "success",
-        });
-    } else {
+    button.disabled = true;
+
+    // Agla sawal show karo
+    if (index < questions.length) {
         question.innerText = questions[index].question;
         option1.innerText = questions[index].option1;
         option2.innerText = questions[index].option2;
         option3.innerText = questions[index].option3;
         index++;
+    } else {
+        showResult();
     }
+}
+
+function showResult() {
+    clearInterval(timerId);
+    Swal.fire({
+        title: "Quiz Completed!",
+        text: `Your score is ${((score / questions.length) * 100).toFixed(2)}%`,
+        icon: "success",
+        confirmButtonText: 'OK',
+        allowOutsideClick: false
+    }).then((result) => {
+        if (result.isConfirmed) {
+            window.location.reload(); 
+        }
+    });
 }
 
 function clicked() {
